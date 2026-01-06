@@ -14,6 +14,7 @@ int execute_command(char **argv);
 char *find_path(char *command);
 int handle_builtins(char **argv);
 void print_error(char *command);
+void print_error(char *command);
 
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
