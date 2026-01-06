@@ -12,6 +12,10 @@ char *find_path(char *command)
 	return (NULL);
 
 	path_env = getenv("PATH");
+	if (!path_env)
+	return (NULL);
+	
+	path_copy = strdup(path_env);
 	if (!path_copy)
 	return (NULL);
 
@@ -39,7 +43,7 @@ char *find_path(char *command)
 		}
 
 		free(full_path);
-		dir = strtok (NULL, ":");
+		dir = strtok(NULL, ":");
 	}
 free(path_copy);
 return (NULL);
