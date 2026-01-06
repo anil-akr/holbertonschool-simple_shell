@@ -1,0 +1,47 @@
+#include "shell.h"
+
+char *find_path(char *command)
+{
+	char *path_env;
+	char *path_copy;
+	char *dir;
+	char *full_path;
+	int cmd_len, dir_len;
+
+	if (!command)
+	return (NULL);
+
+	path_env = getenv("PATH");
+	if (!path_copy)
+	return (NULL);
+
+	cmd_len = _strlen(command);
+
+	dir = strtok(path_copy, ":");
+	while (dir)
+	{
+		dir_len = _strlen(dir);
+		full_path = malloc(dir_len + cmd_len + 2);
+		if (!full_path)
+		{
+			free(path_copy);
+			return (NULL);
+		}
+
+		_strcpy(full_path, dir);
+		_strcat(full_path, "/");
+		_strcat(full_path, command);
+
+		if (access(full_path, X_OK) == 0)
+		{
+			free(path_copy);
+			return (full_path);
+		}
+
+		free(full_path);
+		dir = strtok (NULL, ":");
+	}
+free(path_copy);
+return (NULL);
+
+}
