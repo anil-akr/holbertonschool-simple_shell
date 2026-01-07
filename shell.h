@@ -26,6 +26,7 @@ typedef struct builtin
 extern char **environ;
 
 int built_in(char **command, char *line);
+void print_prompt(void);
 void (*check_built_ins(char *str))(char *str);
 void env_b(__attribute__((unused))char *line);
 void exit_b(__attribute__((unused)) char *line);

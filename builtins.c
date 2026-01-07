@@ -9,9 +9,9 @@ void env_b(__attribute__((unused)) char *line);
 
 /* Table des built-ins */
 static builtin_t builtins[] = {
-    {"exit", exit_b},
-    {"env", env_b},
-    {NULL, NULL}
+	{"exit", exit_b},
+	{"env", env_b},
+	{NULL, NULL}
 };
 
 /**
@@ -22,19 +22,19 @@ static builtin_t builtins[] = {
  */
 void (*check_built_ins(char *str))(char *str)
 {
-    int i = 0;
+	int i = 0;
 
-    if (!str)
-        return NULL;
+	if (!str)
+		return (NULL);
 
-    while (builtins[i].name)
-    {
-        if (strcmp(str, builtins[i].name) == 0)
-            return builtins[i].func;
-        i++;
-    }
+	while (builtins[i].name)
+	{
+		if (strcmp(str, builtins[i].name) == 0)
+			return (builtins[i].func);
+		i++;
+	}
 
-    return NULL;
+	return (NULL);
 }
 
 /**
@@ -46,39 +46,50 @@ void (*check_built_ins(char *str))(char *str)
  */
 int built_in(char **command, char *line)
 {
-    void (*build)(char *);
+	void (*build)(char *);
 
-    if (command == NULL || command[0] == NULL)
-        return (-1);
+	if (command == NULL || command[0] == NULL)
+		return (-1);
 
-    build = check_built_ins(command[0]);
-    if (build == NULL)
-        return (-1);
+	build = check_built_ins(command[0]);
+	if (build == NULL)
+		return (-1);
 
-    build(line);
-    return 0;
+	build(line);
+	return (0);
 }
 
-/* ----------------- Built-in functions ----------------- */
-
 /**
- * exit_b - built-in exit
+ * exit_b - exits the shell
+ * Description: This function terminates the simple shell by calling
+ * the exit system call with a status code of 0. It is used as a
+ * builtin command.
+ * @line: unused parameter (original input line)
+ *
+ * Return: nothing
  */
 void exit_b(__attribute__((unused)) char *line)
 {
-    exit(0);
+	exit(0);
 }
 
 /**
- * env_b - built-in env
+ * env_b - prints all environment variables
+ * Description: This function iterates over the global `environ`
+ * variable and prints each environment string followed by a newline.
+ * It is used as a builtin command in the simple shell.
+ * @line: unused parameter (original input line)
+ *
+ * Return: nothing
  */
+
 void env_b(__attribute__((unused)) char *line)
 {
-    int i = 0;
+	int i = 0;
 
-    while (environ[i])
-    {
-        printf("%s\n", environ[i]);
-        i++;
-    }
+	while (environ[i])
+	{
+		printf("%s\n", environ[i]);
+		i++;
+	}
 }
