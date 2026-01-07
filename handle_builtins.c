@@ -22,5 +22,9 @@ int handle_builtins(char **argv)
 		return (0);
 
 	func(NULL);
+
+	if (strcmp(argv[0], "exit") == 0)
+		printf("OK\n");
+
 	return (1);
 }

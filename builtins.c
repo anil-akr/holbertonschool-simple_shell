@@ -1,18 +1,5 @@
 #include "shell.h"
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-void exit_b(__attribute__((unused)) char *line);
-void env_b(__attribute__((unused)) char *line);
-
-static builtin_t builtins[] = {
-	{"exit", exit_b},
-	{"env", env_b},
-	{NULL, NULL}
-};
-
 /**
  * exit_b - builtin exit, termine le shell
  * @line: ligne d'entrée (non utilisée)
@@ -45,7 +32,7 @@ void env_b(__attribute__((unused)) char *line)
  * @str: nom de la commande
  * Return: pointeur sur fonction ou NULL si pas trouvé
  */
-
+ 
 void (*check_built_ins(char *str))(char *str)
 {
     int i = 0;
@@ -73,7 +60,6 @@ void (*check_built_ins(char *str))(char *str)
  * @line: ligne entrée (peut être NULL)
  * Return: 0 si builtin exécuté, -1 sinon
  */
-
 int built_in(char **command, char *line)
 {
     void (*build)(char *);
