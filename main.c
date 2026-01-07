@@ -18,7 +18,7 @@ int main(void)
 
 	while (1)
 	{
-		display_prompt();
+		print_prompt();
 
 		line = read_line();
 		if (!line)
