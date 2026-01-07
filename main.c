@@ -23,17 +23,14 @@ int main(void)
 		line = read_line();
 		if (!line)
 			break;
-
-		argv = parse_line(line);
-		if (argv)
-		{
-			execute_command(argv);
-			free(argv);
-		}
-
-		free(line);
 	}
 
-	return (0);
-}
+	argv = parse_line(line);
+	if (argv)
+	{
+		if (!handle_builtins(argv))
+			execute_command(argv);
 
+		free(argv);
+	}
+}

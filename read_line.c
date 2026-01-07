@@ -14,9 +14,6 @@ char *read_line(void)
 	size_t len = 0;
 	ssize_t nread;
 
-	if (isatty(STDIN_FILENO))
-		write(STDOUT_FILENO, "$ ", 2);
-
 	nread = getline(&line, &len, stdin);
 
 	if (nread == -1)
