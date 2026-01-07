@@ -17,6 +17,8 @@ int execute_command(char **argv)
 
 	if (!argv || !argv[0])
 		return (0);
+	if (strcmp(argv[0], "exit") == 0)
+    	exit(0);
 	if (handle_builtins(argv) == 1)
 		return (0);
 	if (argv[0][0] == '/')

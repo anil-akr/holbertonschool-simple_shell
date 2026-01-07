@@ -3,11 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Forward declarations des built-ins */
 void exit_b(__attribute__((unused)) char *line);
 void env_b(__attribute__((unused)) char *line);
 
-/* Table des built-ins */
 static builtin_t builtins[] = {
 	{"exit", exit_b},
 	{"env", env_b},
