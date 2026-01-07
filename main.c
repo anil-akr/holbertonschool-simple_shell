@@ -1,5 +1,5 @@
 typedef struct builtin
 {
-    char *name;
-    void (*func)(char *);
+	char *name;
+	void (*func)(char *);
 } builtin_t;

@@ -10,27 +10,26 @@
 
 char **parse_line(char *line)
 {
-    char **argv = NULL;
-    char *token;
-    int i = 0;
+	char **argv = NULL;
+	char *token;
+	int i = 0;
 
-    if (line == NULL)
-        return (NULL);
+	if (line == NULL)
+		return (NULL);
 
-    token = strtok(line, " \t\n");
+	token = strtok(line, " \t\n");
+	while (token != NULL)
+	{
+		argv = realloc(argv, sizeof(char *) * (i + 2));
+		if (argv == NULL)
+			return (NULL);
 
-    while (token != NULL)
-    {
-        argv = realloc(argv, sizeof(char *) * (i + 2));
-        if (argv == NULL)
-            return (NULL);
-            
-        argv[i++] = token;
-        token = strtok(NULL, " \t\n");
-    }
+		argv[i++] = token;
+		token = strtok(NULL, " \t\n");
+	}
 
-    if (argv != NULL)
-        argv[i] = NULL;
+	if (argv != NULL)
+		argv[i] = NULL;
 
-    return (argv);
+	return (argv);
 }
