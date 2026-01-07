@@ -1,6 +1,15 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+/**
+ * struct builtin - represents a shell builtin command
+ * Description: This structure associates the name of a builtin command
+ * with a pointer to the function that executes it. It is used to identify
+ * and execute built-in commands such as "exit" and "env".
+ * @name: name of the builtin command
+ * @func: pointer to the function that executes the builtin command
+ */
+
 typedef struct builtin
 {
     char *name;
