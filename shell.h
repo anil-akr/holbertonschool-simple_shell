@@ -1,5 +1,12 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef SHELL_H
+#define SHELL_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 /**
  * struct builtin - represents a shell builtin command
@@ -22,4 +29,17 @@ int built_in(char **command, char *line);
 void (*check_built_ins(char *str))(char *str);
 void env_b(__attribute__((unused))char *line);
 void exit_b(__attribute__((unused)) char *line);
+
+int execute_command(char **argv);
+char *find_path(char *command);
+int handle_builtins(char **argv);
+void print_error(char *command);
+
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+char *_strcat(char *dest, char *src);
+
+char **parse_line(char *line)
+char *read_line(void)
+
 #endif

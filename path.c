@@ -8,7 +8,10 @@
  *
  * Return: full path to the executable if found, otherwise NULL
  */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 31464c82661c7a1fbda85f75a72f85d4f33401ca
 char *find_path(char *command)
 {
 	char *path_env;
