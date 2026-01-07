@@ -1,6 +1,4 @@
 #include "main.h"
-#include <stdlib.h>
-#include <stddef.h>
 
 /**
  * built_in - checks if a command is a shell builtin and executes it
