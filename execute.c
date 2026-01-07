@@ -1,4 +1,14 @@
 #include "shell.h"
+/**
+ * execute_command - executes a command using fork and execve
+ * @argv: null-terminated array of arguments
+ *
+ * This function checks for built-in commands, resolves the command path,
+ * creates a child process, and executes the command. The parent process
+ * waits for the child to finish before returning.
+ *
+ * Return: 0 on success, -1 on failure
+ */
 int execute_command(char **argv)
 {
 	pid_t pid;
