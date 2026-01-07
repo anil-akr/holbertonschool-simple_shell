@@ -1,5 +1,13 @@
 #include "shell.h"
-
+/**
+ * find_path - searches for a command in the PATH environment variable
+ * @command: the command to locate
+ *
+ * This function parses the PATH environment variable and checks each
+ * directory to determine if the command exists and is executable.
+ *
+ * Return: full path to the executable if found, otherwise NULL
+ */
 char *find_path(char *command)
 {
 	char *path_env;
