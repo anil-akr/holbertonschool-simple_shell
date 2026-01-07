@@ -35,6 +35,7 @@ According to project constraints, the shell does not support:
 
 ## Project Architecture
 
+```
 holbertonschool-simple_shell/
 │
 ├── main.c # Shell main loop
@@ -51,7 +52,7 @@ holbertonschool-simple_shell/
 ├── free.c # Memory management
 │
 └── README.md # Project documentation
-
+```
 
 ---
 
@@ -91,4 +92,5 @@ The shell supports command execution through pipes:
 echo "/bin/ls" | ./simple_shell
 
 The project is organized in a modular way to clearly separate responsibilities:
+
 
