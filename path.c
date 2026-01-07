@@ -1,53 +1,89 @@
 #include "shell.h"
+
 /**
- * find_path - searches for a command in the PATH environment variable
- * @command: the command to locate
- *
- * This function parses the PATH environment variable and checks each
- * directory to determine if the command exists and is executable.
- *
- * Return: full path to the executable if found, otherwise NULL
+ * get_path_from_environ - get PATH from environ manually
+ * Return: PATH string or NULL if not found
  */
+
+char *get_path_from_environ(void)
+{
+	int i = 0;
+	char *prefix = "PATH=";
+
+	while (environ[i] != NULL)
+	{
+		if (strncmp(environ[i], prefix, 5) == 0)
+			return (environ[i] + 5);
+		i++;
+	}
+	return (NULL);
+}
+
+/**
+ * build_full_path - concatenate dir + "/" + command
+ * @dir: directory path
+ * @command: command name
+ * Return: malloced string or NULL
+ */
+
+static char *build_full_path(char *dir, char *command)
+{
+	char *full_path;
+	int dir_len = _strlen(dir);
+	int cmd_len = _strlen(command);
+
+	full_path = malloc(dir_len + cmd_len + 2);
+	if (full_path == NULL)
+		return (NULL);
+
+	_strcpy(full_path, dir);
+	_strcat(full_path, "/");
+	_strcat(full_path, command);
+
+	return (full_path);
+}
+
+/**
+ * find_path - searches PATH directories for a command
+ * @command: name of the command
+ * Return: malloced full path if found, NULL otherwise
+ */
+
 char *find_path(char *command)
 {
-	char *path_env;
-	char *path_copy;
-	char *dir;
-	char *full_path;
-	int cmd_len, dir_len;
+	char *path_env, *path_copy, *dir, *full_path;
 
-	if (!command)
-	return (NULL);
+	if (command == NULL)
+		return (NULL);
 
-		path_env = getenv("PATH");
-	if (!path_env)
-	return (NULL);
-		path_copy = strdup(path_env);
-	if (!path_copy)
-	return (NULL);
-		cmd_len = _strlen(command);
+	path_env = get_path_from_environ();
+	if (path_env == NULL)
+		return (NULL);
+
+	path_copy = strdup(path_env);
+	if (path_copy == NULL)
+		return (NULL);
 
 	dir = strtok(path_copy, ":");
-	while (dir)
+	while (dir != NULL)
 	{
-		dir_len = _strlen(dir);
-		full_path = malloc(dir_len + cmd_len + 2);
-		if (!full_path)
+		full_path = build_full_path(dir, command);
+		if (full_path == NULL)
 		{
 			free(path_copy);
 			return (NULL);
 		}
-		_strcpy(full_path, dir);
-		_strcat(full_path, "/");
-		_strcat(full_path, command);
+
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path_copy);
 			return (full_path);
 		}
+
 		free(full_path);
 		dir = strtok(NULL, ":");
 	}
-free(path_copy);
-return (NULL);
+
+	free(path_copy);
+	return (NULL);
 }

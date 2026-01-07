@@ -18,21 +18,22 @@ int main(void)
 
 	while (1)
 	{
-		/* Affiche prompt uniquement si mode interactif */
-		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "$ ", 2);
+		print_prompt();
 
 		line = read_line();
 		if (!line)
-			break; /* EOF ou erreur */
+			break;
 
 		argv = parse_line(line);
 		if (argv)
+		{
 			execute_command(argv);
+			free(argv);
+		}
 
 		free(line);
-		free(argv);
 	}
 
 	return (0);
 }
+

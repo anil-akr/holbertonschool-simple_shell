@@ -1,4 +1,5 @@
 #include "shell.h"
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,81 +14,77 @@ static builtin_t builtins[] = {
 };
 
 /**
- * check_built_ins - return the function pointer for a builtin command
- * @str: command string
- *
- * Return: pointer to builtin function, or NULL if not found
+ * exit_b - builtin exit, termine le shell
+ * @line: ligne d'entrée (non utilisée)
  */
-void (*check_built_ins(char *str))(char *str)
-{
-	int i = 0;
 
-	if (!str)
-		return (NULL);
-
-	while (builtins[i].name)
-	{
-		if (strcmp(str, builtins[i].name) == 0)
-			return (builtins[i].func);
-		i++;
-	}
-
-	return (NULL);
-}
-
-/**
- * built_in - checks if a command is a shell builtin and executes it
- * @command: array of strings containing the command and arguments
- * @line: original input line
- *
- * Return: 0 if a builtin was executed, -1 otherwise
- */
-int built_in(char **command, char *line)
-{
-	void (*build)(char *);
-
-	if (command == NULL || command[0] == NULL)
-		return (-1);
-
-	build = check_built_ins(command[0]);
-	if (build == NULL)
-		return (-1);
-
-	build(line);
-	return (0);
-}
-
-/**
- * exit_b - exits the shell
- * Description: This function terminates the simple shell by calling
- * the exit system call with a status code of 0. It is used as a
- * builtin command.
- * @line: unused parameter (original input line)
- *
- * Return: nothing
- */
 void exit_b(__attribute__((unused)) char *line)
 {
-	exit(0);
+    exit(0);
 }
 
 /**
- * env_b - prints all environment variables
- * Description: This function iterates over the global `environ`
- * variable and prints each environment string followed by a newline.
- * It is used as a builtin command in the simple shell.
- * @line: unused parameter (original input line)
- *
- * Return: nothing
+ * env_b - builtin env, affiche les variables d'environnement
+ * @line: ligne d'entrée (non utilisée)
  */
 
 void env_b(__attribute__((unused)) char *line)
 {
-	int i = 0;
+    int i = 0;
 
-	while (environ[i])
-	{
-		printf("%s\n", environ[i]);
-		i++;
-	}
+    while (environ[i])
+    {
+        write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
+        write(STDOUT_FILENO, "\n", 1);
+        i++;
+    }
+}
+
+/**
+ * check_built_ins - retourne le pointeur sur la fonction builtin si elle existe
+ * @str: nom de la commande
+ * Return: pointeur sur fonction ou NULL si pas trouvé
+ */
+
+void (*check_built_ins(char *str))(char *str)
+{
+    int i = 0;
+    builtin_t buildin[] = {
+        {"exit", exit_b},
+        {"env", env_b},
+        {NULL, NULL}
+    };
+
+    if (str == NULL)
+        return (NULL);
+
+    while (buildin[i].name)
+    {
+        if (strcmp(str, buildin[i].name) == 0)
+            return (buildin[i].func);
+        i++;
+    }
+    return (NULL);
+}
+
+/**
+ * built_in - exécute un builtin si reconnu
+ * @command: tableau de commandes
+ * @line: ligne entrée (peut être NULL)
+ * Return: 0 si builtin exécuté, -1 sinon
+ */
+
+int built_in(char **command, char *line)
+{
+    void (*build)(char *);
+
+    if (!command || !*command)
+        return (-1);
+
+    build = check_built_ins(command[0]);
+    if (build == NULL)
+        return (-1);
+
+    build(line);
+    return (0);
 }
