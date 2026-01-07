@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+/**
+* read_line - Reads a line from standard input
+* Return: Pointer to the line read or NULL on EOF or error
+*/
+
 char *read_line(void)
 {
     char *line = NULL;
