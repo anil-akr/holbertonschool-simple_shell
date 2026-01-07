@@ -18,8 +18,9 @@ int main(void)
 
 	while (1)
 	{
-		/* Affiche prompt */
-		write(1, "$ ", 2);
+		/* Affiche prompt uniquement si mode interactif */
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "$ ", 2);
 
 		line = read_line();
 		if (!line)
