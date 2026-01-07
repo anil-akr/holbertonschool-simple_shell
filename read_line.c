@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "shell.h"
 
 /**
 * read_line - Reads a line from standard input

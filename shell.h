@@ -39,7 +39,7 @@ int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 
-char **parse_line(char *line)
-char *read_line(void)
+char **parse_line(char *line);
+char *read_line(void);
 
 #endif
