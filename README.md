@@ -93,4 +93,10 @@ echo "/bin/ls" | ./simple_shell
 
 The project is organized in a modular way to clearly separate responsibilities:
 
+```
+Flowchart :
+```
+
+<img width="955" height="672" alt="flowchart_simple_shell" src="https://github.com/user-attachments/assets/5eda3317-1c9e-45f6-b7a3-fff5614215fe" />
+
 
