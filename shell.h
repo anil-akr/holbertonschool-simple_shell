@@ -23,6 +23,9 @@ char **parse_line(char *line);
 char *read_line(void);
 int execute_command(char **argv, char *prog_name, int count);
 
+/* Prompt */
+void print_prompt(void);
+
 /* Path & Builtins */
 char *find_path(char *command);
 int handle_builtins(char **argv);

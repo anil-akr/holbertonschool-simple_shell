@@ -16,10 +16,8 @@ int execute_command(char **argv, char *prog_name, int count)
 	if (argv == NULL || argv[0] == NULL)
 		return (0);
 
-	/* 1. On cherche le chemin AVANT de fork */
 	cmd_path = find_path(argv[0]);
-	
-	/* 2. Si pas trouvé, erreur et PAS DE FORK */
+
 	if (cmd_path == NULL)
 	{
 		print_error(prog_name, count, argv[0]);

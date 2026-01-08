@@ -20,7 +20,7 @@ void env_b(char **argv)
 	int i = 0;
 	(void)argv;
 
-	while (environ[i])
+	while (environ[i] != NULL)
 	{
 		printf("%s\n", environ[i]);
 		i++;
@@ -44,7 +44,7 @@ int handle_builtins(char **argv)
 	if (!argv || !argv[0])
 		return (0);
 
-	while (builtins[i].name)
+	while (builtins[i].name != NULL)
 	{
 		if (strcmp(argv[0], builtins[i].name) == 0)
 		{
