@@ -7,6 +7,7 @@
 
 void exit_b(__attribute__((unused)) char *line)
 {
+    free(line);
     exit(0);
 }
 
