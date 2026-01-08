@@ -1,0 +1,93 @@
+SIMPLE_SHELL(1)
+
+NAME
+simple_shell - a simple UNIX command line interpreter
+
+SYNOPSIS
+simple_shell
+
+DESCRIPTION
+simple_shell is a simplified UNIX command line interpreter developed
+as part of the Holberton School curriculum.
+
+```
+The shell displays a prompt, reads user commands from standard input,
+and executes them using system calls such as fork(), execve(), and wait().
+
+It supports execution of commands using absolute paths or by searching
+through the PATH environment variable.
+
+The shell works in both interactive and non-interactive modes.
+```
+
+FEATURES
+- Displays a prompt and waits for user input
+- Executes commands using absolute paths
+- Executes commands using the PATH environment variable
+- Handles commands with arguments
+- Implements built-in commands: exit and env
+- Handles EOF (Ctrl+D)
+- Displays error messages when commands are not found
+
+BUILT-IN COMMANDS
+exit
+Exits the shell.
+This command does not accept arguments.
+
+```
+env
+    Prints the current environment variables.
+```
+
+NON-INTERACTIVE MODE
+simple_shell can execute commands from standard input:
+
+```
+    echo "/bin/ls" | ./simple_shell
+
+In this mode, the prompt is not displayed.
+```
+
+ERROR HANDLING
+If a command cannot be found, an error message is printed and the
+shell continues execution.
+
+```
+fork() is never called if the command does not exist.
+```
+
+LIMITATIONS
+The shell does not support:
+
+```
+- Command separators (;)
+- Pipes (|)
+- Redirections (>, <, >>)
+- Special characters (", ', \, *, &, #)
+- Aliases or environment variable modification
+```
+
+EXIT STATUS
+simple_shell always exits with status 0 unless terminated by an error
+related to system calls.
+
+ENVIRONMENT
+PATH
+Used to locate executable commands.
+
+```
+environ
+    Global variable containing the environment.
+```
+
+FILES
+simple_shell
+The shell executable.
+
+AUTHOR
+Audu Mila
+Aker Anil
+Cornibe Ilan
+
+LICENSE
+This project is for educational purposes only.
