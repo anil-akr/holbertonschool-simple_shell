@@ -1,10 +1,9 @@
 #include "shell.h"
 
 /**
- * execute_command - executes a command using PATH
- * @argv: null-terminated array of arguments
- *
- * Return: 0 always
+ * execute_command - executes an external command
+ * @argv: array of arguments
+ * Return: status of execution
  */
 
 int execute_command(char **argv)
@@ -20,7 +19,7 @@ int execute_command(char **argv)
 	if (cmd_path == NULL)
 	{
 		print_error(argv[0]);
-		return (0);
+		return (127);
 	}
 
 	pid = fork();
@@ -28,18 +27,21 @@ int execute_command(char **argv)
 	{
 		perror("fork");
 		free(cmd_path);
-		return (0);
+		return (1);
 	}
 
 	if (pid == 0)
 	{
-		execve(cmd_path, argv, environ);
-		perror(argv[0]);
-		exit(EXIT_FAILURE);
+		if (execve(cmd_path, argv, environ) == -1)
+		{
+			perror(argv[0]);
+			free(cmd_path);
+			exit(127);
+		}
 	}
 	else
 	{
-		wait(&status);
+		waitpid(pid, &status, 0);
 	}
 
 	free(cmd_path);
