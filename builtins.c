@@ -1,8 +1,10 @@
 #include "shell.h"
 
 /**
- * exit_b - builtin exit, termine le shell
- * @line: ligne d'entrée (non utilisée)
+ * exit_b - builtin exit, terminates the shell
+ * @line: input line (unused)
+ * This function exits the shell program.
+ * The input line is freed before exiting.
  */
 
 void exit_b(__attribute__((unused)) char *line)
@@ -12,10 +14,11 @@ void exit_b(__attribute__((unused)) char *line)
 }
 
 /**
- * env_b - builtin env, affiche les variables d'environnement
- * @line: ligne d'entrée (non utilisée)
+ * env_b - builtin env, prints environment variables
+ * @line: input line (unused)
+ * This function iterates through the environment variables
+ * and prints each one followed by a newline.
  */
-
 void env_b(__attribute__((unused)) char *line)
 {
     int i = 0;
@@ -29,11 +32,13 @@ void env_b(__attribute__((unused)) char *line)
 }
 
 /**
- * check_built_ins - retourne le pointeur sur la fonction builtin si elle existe
- * @str: nom de la commande
- * Return: pointeur sur fonction ou NULL si pas trouvé
+ * check_built_ins - checks if a command is a builtin
+ * @str: command name
+ *
+ * Return: pointer to the corresponding builtin function,
+ * or NULL if the command is not a builtin
  */
- 
+
 void (*check_built_ins(char *str))(char *str)
 {
     int i = 0;
@@ -56,11 +61,13 @@ void (*check_built_ins(char *str))(char *str)
 }
 
 /**
- * built_in - exécute un builtin si reconnu
- * @command: tableau de commandes
- * @line: ligne entrée (peut être NULL)
- * Return: 0 si builtin exécuté, -1 sinon
+ * built_in - executes a builtin command if recognized
+ * @command: array containing the command and its arguments
+ * @line: input line (can be NULL)
+ *
+ * Return: 0 if a builtin was executed, -1 otherwise
  */
+
 int built_in(char **command, char *line)
 {
     void (*build)(char *);
