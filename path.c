@@ -8,40 +8,40 @@
 
 char *find_path(char *command)
 {
-    char *path_env, *path_copy, *dir, *full_path;
-    struct stat st;
+	char *path_env, *path_copy, *dir, *full_path;
+	struct stat st;
 
-    if (command == NULL)
-        return (NULL);
+	if (command == NULL)
+		return (NULL);
 
-    if (stat(command, &st) == 0)
-        return (_strdup(command));
+	if (stat(command, &st) == 0)
+		return (_strdup(command));
 
-    path_env = _getenv("PATH");
-    if (path_env == NULL || _strlen(path_env) == 0)
-        return (NULL);
+	path_env = _getenv("PATH");
+	if (path_env == NULL || _strlen(path_env) == 0)
+		return (NULL);
 
-    path_copy = _strdup(path_env);
-    
-    dir = strtok(path_copy, ":");
-    while (dir != NULL)
-    {
-        full_path = malloc(_strlen(dir) + _strlen(command) + 2);
-        if (full_path == NULL)
-            break;
+	path_copy = _strdup(path_env);
+	
+	dir = strtok(path_copy, ":");
+	while (dir != NULL)
+	{
+		full_path = malloc(_strlen(dir) + _strlen(command) + 2);
+		if (full_path == NULL)
+			break;
 
-        _strcpy(full_path, dir);
-        _strcat(full_path, "/");
-        _strcat(full_path, command);
+		_strcpy(full_path, dir);
+		_strcat(full_path, "/");
+		_strcat(full_path, command);
 
-        if (stat(full_path, &st) == 0)
-        {
-            free(path_copy);
-            return (full_path);
-        }
-        free(full_path);
-        dir = strtok(NULL, ":");
-    }
-    free(path_copy);
-    return (NULL);
+		if (stat(full_path, &st) == 0)
+		{
+			free(path_copy);
+			return (full_path);
+		}
+		free(full_path);
+		dir = strtok(NULL, ":");
+	}
+	free(path_copy);
+	return (NULL);
 }

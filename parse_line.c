@@ -35,33 +35,32 @@ static char **resize_argv(char **argv, int *size)
 
 char **parse_line(char *line)
 {
-	char **argv;
+	int bufsize = 8, i = 0;
+	char **argv = malloc(bufsize * sizeof(char *));
 	char *token;
-	int i = 0;
-	int size = 8;
 
-	if (line == NULL)
+	if (!argv)
 		return (NULL);
 
-	argv = malloc(sizeof(char *) * size);
-	if (argv == NULL)
-		return (NULL);
-
-	token = strtok(line, " \t\n");
+	token = strtok(line, " \t\n\r\a");
 	while (token != NULL)
 	{
-		if (i >= size - 1)
-		{
-			argv = resize_argv(argv, &size);
-			if (argv == NULL)
-				return (NULL);
-		}
-
 		argv[i] = token;
 		i++;
-		token = strtok(NULL, " \t\n");
-	}
 
+		if (i >= bufsize)
+		{
+			bufsize *= 2;
+			char **old_argv = argv;
+			argv = realloc(argv, bufsize * sizeof(char *));
+			if (!argv)
+			{
+				free(old_argv);
+				return (NULL);
+			}
+		}
+		token = strtok(NULL, " \t\n\r\a");
+	}
 	argv[i] = NULL;
 	return (argv);
 }
