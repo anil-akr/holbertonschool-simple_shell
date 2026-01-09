@@ -8,7 +8,6 @@
  *
  * Return: 0 always
  */
-
 int execute_command(char **argv)
 {
 	pid_t pid;
@@ -21,8 +20,8 @@ int execute_command(char **argv)
 	cmd_path = find_path(argv[0]);
 	if (cmd_path == NULL)
 	{
-		print_error(argv[0]);
-		return (0);
+		print_error(argv[0]); /* command not found */
+		return (127);
 	}
 
 	pid = fork();
@@ -30,13 +29,14 @@ int execute_command(char **argv)
 	{
 		perror("fork");
 		free(cmd_path);
-		return (0);
+		return (1);
 	}
 
 	if (pid == 0)
 	{
 		execve(cmd_path, argv, environ);
 
+		/* execve failed */
 		perror(argv[0]);
 
 		if (errno == ENOENT)
