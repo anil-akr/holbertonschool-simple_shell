@@ -1,44 +1,19 @@
 #include "shell.h"
 
 /**
- * resize_argv - resize argv array
- * @argv: current argv
- * @size: current size
- * Return: new argv or NULL
+ * parse_line - splits a line into tokens (arguments)
+ * @line: the input string to be parsed
+ *
+ * Return: a NULL-terminated array of strings, or NULL on failure
  */
-
-static char **resize_argv(char **argv, int *size)
-{
-	char **new_argv;
-	int i = 0;
-
-	*size *= 2;
-	new_argv = malloc(sizeof(char *) * (*size));
-	if (new_argv == NULL)
-		return (NULL);
-
-	while (argv[i] != NULL)
-	{
-		new_argv[i] = argv[i];
-		i++;
-	}
-
-	free(argv);
-	return (new_argv);
-}
-
-/**
- * parse_line - splits a line into arguments
- * @line: input line
- * Return: NULL-terminated array
- */
-
 char **parse_line(char *line)
 {
 	int bufsize = 8, i = 0;
-	char **argv = malloc(bufsize * sizeof(char *));
+	char **argv;
+	char **old_argv;
 	char *token;
 
+	argv = malloc(bufsize * sizeof(char *));
 	if (!argv)
 		return (NULL);
 
@@ -51,7 +26,7 @@ char **parse_line(char *line)
 		if (i >= bufsize)
 		{
 			bufsize *= 2;
-			char **old_argv = argv;
+			old_argv = argv;
 			argv = realloc(argv, bufsize * sizeof(char *));
 			if (!argv)
 			{
