@@ -9,7 +9,6 @@
 char *find_path(char *command)
 {
 	char *path_env, *path_copy, *dir, *full_path;
-	struct stat st;
 
 	if (command == NULL)
 		return (NULL);
@@ -17,7 +16,7 @@ char *find_path(char *command)
 	if (stat(command, &st) == 0)
 		return (_strdup(command));
 
-	path_env = _getenv("PATH");
+	path_env = getenv("PATH");
 	if (path_env == NULL || _strlen(path_env) == 0)
 		return (NULL);
 
