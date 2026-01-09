@@ -14,6 +14,7 @@ void exit_b(char *line)
  * env_b - prints environment
  * @line: unused
  */
+
 void env_b(char *line)
 {
 	int i = 0;
@@ -33,6 +34,7 @@ void env_b(char *line)
  * @line: original line
  * Return: 0 if builtin, -1 if not
  */
+
 int built_in(char **command, char *line)
 {
 	int i = 0;

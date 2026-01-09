@@ -1,34 +1,27 @@
 #include "shell.h"
 
 /**
- * _strlen - calculates the length of a string
- * Description: This function returns the number of characters in
- * the string pointed to by s, excluding the terminating null byte.
- * @s: pointer to the input string
- *
- * Return: the length of the string, or 0 if s is NULL
+ * _strlen - returns the length of a string
+ * @s: string
+ * Return: length
  */
 
 int _strlen(char *s)
 {
 	int len = 0;
 
-	while (s && s[len])
-	{
+	if (!s)
+		return (0);
+	while (s[len])
 		len++;
-	}
 	return (len);
 }
 
 /**
- * _strcpy - copies a string to another buffer
- * Description: This function copies the string pointed to by src,
- * including the terminating null byte, into the buffer pointed to
- * by dest.
- * @dest: pointer to the destination buffer
- * @src: pointer to the source string
- *
- * Return: pointer to dest
+ * _strcpy - copies string
+ * @dest: destination
+ * @src: source
+ * Return: dest
  */
 
 char *_strcpy(char *dest, char *src)
@@ -48,13 +41,9 @@ char *_strcpy(char *dest, char *src)
 
 /**
  * _strcat - concatenates two strings
- * Description: This function appends the string pointed to by src
- * to the end of the string pointed to by dest. The dest buffer must
- * have enough space to hold the result.
- * @dest: pointer to the destination string
- * @src: pointer to the source string
- *
- * Return: pointer to dest
+ * @dest: destination
+ * @src: source
+ * Return: dest
  */
 
 char *_strcat(char *dest, char *src)
@@ -63,11 +52,50 @@ char *_strcat(char *dest, char *src)
 
 	if (!dest || !src)
 		return (dest);
-
 	while (dest[i])
 		i++;
 	while (src[j])
 		dest[i++] = src[j++];
 	dest[i] = '\0';
 	return (dest);
+}
+
+/**
+ * _strcmp - compares two strings
+ * @s1: string 1
+ * @s2: string 2
+ * Return: difference
+ */
+
+int _strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
+
+/**
+ * _strdup - duplicates a string
+ * @str: string to dup
+ * Return: pointer to new string
+ */
+
+char *_strdup(char *str)
+{
+	char *dup;
+	int i, len = 0;
+
+	if (!str)
+		return (NULL);
+	while (str[len])
+		len++;
+	dup = malloc(sizeof(char) * (len + 1));
+	if (!dup)
+		return (NULL);
+	for (i = 0; i <= len; i++)
+		dup[i] = str[i];
+	return (dup);
 }
