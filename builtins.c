@@ -7,9 +7,10 @@
  * The input line is freed before exiting.
  */
 
-void exit_b(__attribute__((unused)) char *line)
+void exit_b(char *line)
 {
-    free(line);
+    if (line)
+        free(line);
     exit(0);
 }
 
