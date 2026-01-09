@@ -4,6 +4,7 @@
  * exit_b - exits the shell
  * @line: line to free
  */
+
 void exit_b(char *line)
 {
 	free(line);

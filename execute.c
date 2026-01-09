@@ -1,11 +1,12 @@
 #include "shell.h"
+#include <errno.h>
+#include <sys/wait.h>
 
 /**
  * execute_command - executes an external command
  * @argv: array of arguments
  * Return: status of execution
  */
-
 int execute_command(char **argv)
 {
 	pid_t pid;
@@ -19,6 +20,7 @@ int execute_command(char **argv)
 	if (cmd_path == NULL)
 	{
 		print_error(argv[0]);
+
 		return (127);
 	}
 
