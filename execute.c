@@ -1,4 +1,6 @@
 #include "shell.h"
+#include <errno.h>
+#include <sys/wait.h>
 
 /**
  * execute_command - executes a command using PATH
@@ -34,12 +36,19 @@ int execute_command(char **argv)
 	if (pid == 0)
 	{
 		execve(cmd_path, argv, environ);
+
 		perror(argv[0]);
-		exit(EXIT_FAILURE);
+
+		if (errno == ENOENT)
+			exit(127);
+		else if (errno == EACCES)
+			exit(126);
+		else
+			exit(1);
 	}
 	else
 	{
-		wait(&status);
+		waitpid(pid, &status, 0);
 	}
 
 	free(cmd_path);
